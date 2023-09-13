@@ -1,8 +1,27 @@
+class VerifyablePresentation:
+
+    def __init__(self):
+        self.xmlns = ""
+        self.cred = ""
+        self.ds = ""
+        self.vp = ""
+        self.xsi = ""
+        self.id = ""
+        self.xsi_scheme_location = ""
+
+        self.vp_type = ""  # expects VPtype object
+        self.vp_issuer = ""  # expects VPissuer object
+        self.europass_credentials = ""  # expects EuropassCredentials object
+        self.vp_proof = ""  # expects Signature object
+
+
 class VPtype:
 
     def __init__(self):
-        self.target_name = ""
-        self.target_framework_name = ""
+        self.target_framework_url = ""
+        self.uri = ""
+        self.target_name = {}  # style: key is language code according to BCP 47, value is name
+        self.target_framework_name = {}  # style: key is language code according to BCP 47, value is name
 
 
 class VPissuer:
@@ -39,6 +58,8 @@ class EuropassCredentials:
         self.contact_point_given_name = ""
 
         self.activities = []  # contains Activity objects
+
+        self.display_parameters = ""  # expects DisplayParameters object
 
 
 class Activity:
@@ -108,4 +129,100 @@ class Location:
         self.location_country_target_framework_name = {}  # style: key = language tag according to BCP 47, value = title
 
 
+class DisplayParameters:
 
+    def __init__(self):
+        self.content_type_target_framework_url = ""
+        self.content_type_target_notation = ""
+        self.content_type_uri = ""
+        self.content_type_target_name = {}  # style: key = language tag according to BCP 47, value = content
+        self.content_type_target_framework_name = {}  # style: key = language tag according to BCP 47, value = content
+
+        self.content_encoding_target_framework_url = ""
+        self.content_encoding_uri = ""
+        self.content_encoding_target_name = {}
+        self.content_encoding_target_framework_name = {}  # style: key = language tag according to BCP 47, value =
+        # content
+
+        self.content = ""
+
+        self.html = ""  # link to html source code
+
+
+class Signature:
+
+    def __init__(self):
+        self.signature_id = ""
+        self.signed_info = ""
+
+        self.signature_value_id = ""
+        self.signature_value = ""
+
+        self.key_info_x509_certificate = ""
+
+
+class SignedInfo:
+
+    def __init__(self):
+        self.canonical_method_algorithm = ""
+        self.signature_method_algorithm = ""
+
+        self.reference = []  # expects Reference objects
+
+
+class Reference:
+
+    def __init__(self):
+        self.reference_id = ""
+        self.reference_uri = ""
+        self.reference_type = ""
+
+        self.transform_algorithm_1 = ""
+        self.transform_dsig_filter2 = ""
+        self.transform_dsig_filter = ""
+        self.transform_content = ""
+        self.transform_algorithm_2 = ""
+
+        self.digest_method_algorithm = ""
+        self.digest_value = ""
+
+
+class SignatureObject:
+
+    def __init__(self):
+        self.xmlns_xades = ""
+        self.qualifying_properties_target = ""
+
+        self.signet_properties_id = ""
+        self.signing_time = ""  # Date-Time datatype
+
+        self.cert_digest_algorithm = ""
+        self.cert_digest_value = ""
+        self.cert_issuer_v2 = ""
+
+        self.data_object_format_reference = ""
+        self.xades_mime_type = ""
+
+        self.all_data_object_time_stamp = ""  # expects SignatureTimeStamp object
+
+        self.unsigned_properties = ""  # expects UnsignedProperties object
+
+
+class UnsignedProperties:
+
+    def __init__(self):
+        self.unsigned_properties_time_stamp = ""  # expects SignatureTimeStamp object
+
+        self.certification_values = []
+
+        self.encapsulated_clr_values = []
+
+        self.ocsp_values = []
+
+
+class SignatureTimeStamp:
+
+    def __init__(self):
+        self.time_stamp_id = ""
+        self.canonicalization_algorithm = ""
+        self.encapsulated_time_stamp = ""
